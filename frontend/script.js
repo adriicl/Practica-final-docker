@@ -1,4 +1,4 @@
-fetch('http://localhost:8000/api/alumno') // Conexión interna entre servicios
+fetch('http://localhost:8000/api/alumnos')
     .then(response => response.json())
     .then(data => {
         const list = document.getElementById('alumnos');

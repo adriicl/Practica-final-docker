@@ -1,0 +1,54 @@
+services:
+  db:
+    image: mysql:8.0
+    container_name: mysql_server
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: practica
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./practica.sql:/docker-entrypoint-initdb.d/practica.sql:ro
+    restart: always
+
+  app:
+    build:
+      context: ./Laravel
+      dockerfile: Dockerfile
+    container_name: laravel_app
+    environment:
+      DB_CONNECTION: mysql
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_DATABASE: practica
+      DB_USERNAME: user
+      DB_PASSWORD: password
+      APP_KEY: base64:YOUR_APP_KEY
+    volumes:
+      - ./Laravel:/var/www/html
+      - ./Laravel/storage:/var/www/html/storage
+      - ./Laravel/bootstrap/cache:/var/www/html/bootstrap/cache
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    command: >
+      bash -c "dockerize -wait tcp://db:3306 -timeout 20s &&
+      php artisan migrate --force &&
+      php artisan db:seed &&
+      php artisan serve --host=0.0.0.0 --port=8000"
+    working_dir: /var/www/html
+    restart: always
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: frontend
+    ports:
+      - "8080:80"
+    depends_on:
+      - app
+    restart: always

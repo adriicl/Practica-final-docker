@@ -3,12 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Alumnos</title>
     <link rel="stylesheet" href="styles.css">
-    <title>Alumnos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <h1>Lista de Alumnos</h1>
-    <ul id="alumnos"></ul>
+    <header>
+        <h1>Lista de Alumnos</h1>
+    </header>
+    <main>
+        <section id="data-section">
+            <button id="fetch-data-btn">Cargar Alumnos</button>
+            <div id="data-container">
+                <!-- Las tarjetas de alumnos se cargarán aquí -->
+            </div>
+        </section>
+        <ul id="alumnos">
+            <!-- Lista de alumnos generada dinámicamente -->
+        </ul>
+    </main>
+    <footer style="text-align: center; padding: 1rem; margin-top: 2rem; background-color: #f4f4f9;">
+        <p>Creado por <strong>Adrián</strong> &copy; 2025</p>
+    </footer>
     <script src="script.js"></script>
 </body>
 </html>

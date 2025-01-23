@@ -2,7 +2,6 @@ fetch('http://localhost:8000/api/alumnos')
     .then(response => response.json())
     .then(data => {
         const list = document.getElementById('alumnos');
-        list.innerHTML = ''; // Limpiar el contenido previo
         data.forEach(alumno => {
             const li = document.createElement('li');
             li.innerHTML = `
